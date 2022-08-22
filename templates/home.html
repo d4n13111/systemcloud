@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block act1 %}active{% endblock %}
+
+{% block content %}
+	<!-- Inicio -->
+	<main id="inicio"
+	      class="carousel slide carousel-fade" 
+	      data-bs-ride="carousel"
+	      data-bs-interval="5000"
+	      data-bs-pause="false">
+
+		<div class="carousel-inner">
+			{% for slider in sliders %}
+			<div class="masthead carousel-item {{slider.activ}}"
+			      style="background-image: url('{{slider.image.url}}')">
+				<div class="carousel-caption
+				            d-flex
+				            flex-column
+				            justify-content-center
+				            h-100"
+				     style="top: 0">
+
+					<div class="masthead-heading">{{slider.title}}</div>
+					<div class="masthead-subheading">
+						{{slider.descr}}
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+
+		</div>
+
+		<button class="carousel-control-prev"
+		        type="button"
+		        data-bs-target="#inicio"
+		        data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next"
+		        type="button"
+		        data-bs-target="#inicio"
+		        data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</main>
+	<!-- End Inicio -->
+{% endblock %}

@@ -1,0 +1,39 @@
+{% load widget_tweaks %}
+{% load embed_video_tags %}
+
+<div class="row justify-content-center">
+	<div class="col-lg-8">
+		{% if portfolio.clase == '1' %}
+			{% video portfolio.youtb 'tiny' %}
+			<h3>
+				{{portfolio.title}}
+				<a href="{{portfolio.enlac}}" target="_blank">
+					<i class="fa fa-link" aria-hidden="true"></i>
+				</a>
+			</h3>
+			<p>{{portfolio.descr}}</p>
+		{% elif portfolio.clase == '2' %}
+			<img src="{{portfolio.image.url}}" class="img-fluid rounded">
+			<h3>
+				{{portfolio.title}}
+				<a href="{{portfolio.enlac}}" target="_blank">
+					<i class="fa fa-link" aria-hidden="true"></i>
+				</a>
+			</h3>
+			<p>{{portfolio.descr}}</p>
+		{% else %}
+			<img src="{{portfolio.image.url}}" class="img-fluid rounded">
+			<h3>{{portfolio.title}}</h3>
+			<p>{{portfolio.descr}}</p>
+		{% endif %}
+
+		<div class="mb-3">
+			<button type="button"
+			        class="btn btn-primary w-50 rounded-pill"
+		            data-bs-dismiss="modal">
+				Close
+			</button>
+		</div>
+
+	</div>
+</div>

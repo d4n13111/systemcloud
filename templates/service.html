@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block act2 %}active{% endblock %}
+
+{% block content %}
+	
+	<!-- Servicios -->
+	<section class="page-section">
+		<div class="container">
+			
+			<h2 class="section-heading text-uppercase text-center">Servicios</h2>
+			<hr>
+
+			<!-- Services Grid -->
+			<div class="row">
+				{% for service in services %}
+				<div class="col-md-3 pb-4">
+					<div class="feature text-center">
+						<div class="feature-icon">
+							<img src="{{service.image.url}}" width="48" height="48">
+						</div>
+
+						<h4 class="fw-bold mb-0">{{service.title}}</h4>
+						<p>{{service.descr}}</p>
+					</div>
+				</div>
+				{% endfor %}
+
+			</div>
+			<!-- End Services Grid -->
+
+			<!-- Pagination -->
+			{% if is_paginated %}
+				<ul class="pagination">
+					
+					<!-- Page previous -->	
+					{% if page_obj.has_previous %}
+					<li class="page-item">
+						<a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+					</li>
+					{% else %}
+					<li class="page-item disabled">
+						<span class="page-link">&laquo;</span>
+					</li>
+					{% endif %}
+					<!-- End Page previous -->
+
+					<!-- Range itemn -->
+					{% for i in paginator.page_range %}
+						{% if page_obj.number == i %}
+						<li class="page-item active">
+							<a class="page-link" href="?page={{i}}">{{i}}</a>
+						</li>
+						{% elif i > page_obj.number|add:'-2' and i < page_obj.number|add:'2' %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{i}}">{{i}}</a>
+						</li>
+						{% endif %}
+					{% endfor %}
+					<!-- End Range itemn -->
+
+					<!-- Page next -->
+					{% if page_obj.has_next %}
+					<li class="page-item">
+						<a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+					</li>
+					{% else %}
+					<li class="page-item disabled">
+						<span class="page-link">&raquo;</span>
+					</li>
+					{% endif %}
+					<!-- End Page next -->
+
+				</ul>
+			{% endif %}
+			<!-- End Pagination -->
+
+		</div>
+	</section>
+	<!-- End Servicios -->
+
+	<!-- Footer -->
+	<footer class="footer text-center bg-dark text-white fixed-bottom">
+		<p class="small">Copyright &copy; {% now 'Y' %}, Todos los derechos reservados</p>
+	</footer>
+	<!-- End Footer -->
+
+{% endblock %}

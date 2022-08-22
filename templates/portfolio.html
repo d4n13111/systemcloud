@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block act3 %}active{% endblock %}
+
+{% block content %}
+	
+	<!-- Portafolio -->
+	<section class="page-section">
+		{{portfolio}}
+		<div class="container">
+			
+			<!-- Título y Subtítulo -->
+			<h2 class="section-heading text-uppercase text-center">Portafolio</h2>
+			<hr class="divider">
+			<!-- End Título y Subtítulo -->
+			
+			<!-- Galería -->
+			<div class="row">
+				<!-- Item Galería -->
+				{% for portfolio in portfolios %}
+				<div class="col-md-3 pb-4">
+					<div class="card h-100">
+						<a class="read-folio text-decoration-none text-reset"
+						   data-form-url="{% url 'read_portfolio' portfolio.pk %}" 
+						   href="javascript:">
+							
+							<img src="{{portfolio.image.url}}" class="card-img-top">
+
+							<div class="card-body">
+								<div class="text-center">
+									<h5 class="fw-bold mb-0">{{portfolio.title}}</h5>
+								</div>
+                             
+
+
+                     </div>		
+						</a>
+					</div>
+					
+				</div>
+				{% endfor %}
+				<!-- End Item Galería -->
+			</div>
+			<!-- End Galería -->
+
+			<!-- Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+         		<div class="modal-content py-md-5 px-md-4 p-sm-3 p-4 text-center"></div>
+      		</div>
+			</div>
+			<!-- End Modal -->
+
+			<!-- Pagination -->
+			{% if is_paginated %}
+				<ul class="pagination">
+					
+					<!-- Page previous -->	
+					{% if page_obj.has_previous %}
+					<li class="page-item">
+						<a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+					</li>
+					{% else %}
+					<li class="page-item disabled">
+						<span class="page-link">&laquo;</span>
+					</li>
+					{% endif %}
+					<!-- End Page previous -->
+
+					<!-- Range itemn -->
+					{% for i in paginator.page_range %}
+						{% if page_obj.number == i %}
+						<li class="page-item active">
+							<a class="page-link" href="?page={{i}}">{{i}}</a>
+						</li>
+						{% elif i > page_obj.number|add:'-2' and i < page_obj.number|add:'2' %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{i}}">{{i}}</a>
+						</li>
+						{% endif %}
+					{% endfor %}
+					<!-- End Range itemn -->
+
+					<!-- Page next -->
+					{% if page_obj.has_next %}
+					<li class="page-item">
+						<a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+					</li>
+					{% else %}
+					<li class="page-item disabled">
+						<span class="page-link">&raquo;</span>
+					</li>
+					{% endif %}
+					<!-- End Page next -->
+
+				</ul>
+			{% endif %}
+			<!-- End Pagination -->
+		</div>
+
+	</section>
+	<!-- End Portafolio -->
+
+	<!-- Footer -->
+	<footer class="footer text-center bg-dark text-white fixed-bottom">
+		<p class="small">Copyright &copy; {% now 'Y' %}, Todos los derechos reservados</p>
+	</footer>
+	<!-- End Footer -->
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+   $(function () {
+      // Read
+      $(".read-folio").each(function () {
+         $(this).modalForm({formURL: $(this).data("form-url")});
+      });
+   });
+</script>
+{% endblock %}
